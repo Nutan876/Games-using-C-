@@ -1,2 +1,2 @@
-# Games-using-C-
+# Games-using-C++
 tictactoe
