@@ -170,12 +170,16 @@ void robotlogic(int board[3][3])
             (board[i][0] == board[i][2] && board[i][1] == 0) && board[i][0] != 0)
         {
             pos = robotposrow(board, i);
+            if (board[i][0] == player2 || board[i][1] == player2 || board[i][2] == player2)
+                break;
         }
         if ((board[0][i] == board[1][i] && board[2][i] == 0) && board[0][i] != 0 ||
             (board[1][i] == board[2][i] && board[0][i] == 0) && board[1][i] != 0 ||
             (board[0][i] == board[2][i] && board[1][i] == 0) && board[0][i] != 0)
         {
             pos = robotposcol(board, i);
+            if (board[i][0] == player2 || board[i][1] == player2 || board[i][2] == player2)
+                break;
         }
     }
 
@@ -245,46 +249,49 @@ void robotfirst(int board[3][3])
 
     for (int i = 0; i < 4; i++)
     {
-        if (arr1[i] == 0)
+        if (arr1[i] != 0)
         {
-            num1 = i;
+            num1 = i + 1;
         }
-        if (arr2[i] == 0)
+        if (arr2[i] != 0)
         {
-            num2 = i;
+            num2 = i + 1;
         }
     }
 
     srand(time(0));
 
     int chance = rand() % 10 + 1;
+    cout << "chance : " << chance << endl;
     int pos;
 
-    if (chance <= 5 && board[1][1] == 0)
+    if (chance <= 8 && board[1][1] == 0)
     {
         pos = 5;
         cout << "Robot Choose Position : " << pos << endl;
         fillboard(board, pos, player2);
     }
-    else if ((5 < chance && chance <= 7) && board[1][1] == 0)
+    else if ((8 < chance && chance <= 9) && board[1][1] == 0)
     {
         pos = arr2[rand() % num2];
         cout << "Robot Choose Position : " << pos << endl;
         fillboard(board, pos, player2);
     }
-    else if (chance > 7 && board[1][1] == 0)
+    else if (chance > 9 && board[1][1] == 0)
     {
         pos = arr1[rand() % num1];
         cout << "Robot Choose Position : " << pos << endl;
         fillboard(board, pos, player2);
     }
-    else if (chance <= 8 && board[1][1] != 0)
+    else if ((chance <= 8 && board[1][1] != 0) &&
+             ((board[0][0] == board[2][2] && board[0][0] != 0) ||
+              (board[0][2] == board[2][0] && board[0][0] != 0)))
     {
-        pos = arr1[rand() % num1];
+        pos = arr2[rand() % num2];
         cout << "Robot Choose Position : " << pos << endl;
         fillboard(board, pos, player2);
     }
-    else if (chance > 8)
+    else if (chance > 9 && board[1][1] != 0)
     {
         pos = arr2[rand() % num2];
         cout << "Robot Choose Position : " << pos << endl;
